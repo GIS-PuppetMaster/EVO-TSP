@@ -2,6 +2,7 @@ from Mutation import random_select_gene_sequence
 import random
 import copy
 
+
 def orderCrossoverTool(parent1, parent2):
     # do OC to parent1
     # random select a sequence of gene in parent1
@@ -112,5 +113,70 @@ def cycleCrossover(parent1, parent2):
 
 
 def edgeRecombination(parent1, parent2):
-    # TODO
-    pass
+    # do edgeRecombination between parent1 and parent2
+    solution1 = parent1.solution
+    solution2 = parent2.solution
+    neighbour = []
+    child = []
+    # get the neighbour list
+    for i in range(len(parent1)):
+        neighbour[i] = getneighbour(solution1, solution2, i)
+    # random select a parent and let the child start with that parent's first gene
+    n = random.randint(0, 1)
+    if n == 0:
+        child[0] = solution1[0]
+    else:
+        child[0] = solution2[0]
+    i = 0
+    # interate and get the child
+    while len(child) != len(child):
+        child[i + 1] = neighbour[child[i]][random.randint(1, len(neighbour[child[i]])) - 1]
+        neighbour = removeneighbour(neighbour, child[i + 1])
+        i += 1
+    parent1.solution = child
+
+
+def removeneighbour(neighbour, number):
+    # remove all the same gene in the list neighbour
+    length = len(neighbour)
+    for i in range(0, length - 1):
+        # remove neighbour[number]
+        if i == number:
+            neighbour[i] = []
+        # remcve the number in the other neighbour
+        else:
+            neighbour[i].remove()
+    return neighbour
+
+
+def getneighbour(solution1, solution2, number):
+    # find the neighbour of a order number
+    neighbour = []
+    # find gene's index
+    index = solution1.index(number)
+    if index == 0:
+        neighbour.append(solution1[1])
+        neighbour.append(solution1[len(solution1)])
+    elif index == len(solution1):
+        neighbour.append(solution1[0])
+        neighbour.append(solution1[index - 1])
+    else:
+        neighbour.append(solution1[index + 1])
+        neighbour.append(solution1[index - 1])
+    # find gene's index
+    index = solution2.index(number)
+    if index == 0:
+        a1 = solution2[1]
+        a2 = solution2[len(solution2)]
+    elif index == len(solution1):
+        a1 = solution2[0]
+        a2 = solution2[index - 1]
+    else:
+        a1 = solution2[index + 1]
+        a2 = solution2[index - 1]
+    # remove the repeated neighbour
+    if a1 not in neighbour:
+        neighbour.append(a1)
+    if a2 not in neighbour:
+        neighbour.append(a2)
+    return neighbour

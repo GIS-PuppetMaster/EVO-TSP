@@ -68,8 +68,8 @@ def elitismSelection(problem, population):
     best = None
     min_fitness = 1e20
     for individual in population:
-        f = fitness(problem,individual)
-        if f > min_fitness:
+        f = fitness(problem, individual)
+        if f <= min_fitness:
             min_fitness = f
             best = individual
     return best
