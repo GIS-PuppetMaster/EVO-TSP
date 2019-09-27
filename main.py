@@ -3,7 +3,7 @@ from GA2 import *
 from GA3 import *
 # experiment1
 POPULATION_LIST = [10, 20, 50, 100]
-p_list = ['eil51', 'eil76', 'eil101', 'st70']
+p_list = ['kroD100']
 a_list = [1, 2, 3]
 for problem in p_list:
     for a in a_list:

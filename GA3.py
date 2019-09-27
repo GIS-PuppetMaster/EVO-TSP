@@ -4,6 +4,7 @@ elitismSelection
 cycleCrossover
 insert mutation
 """
+import Config
 from TSPProblem import TSPProblem
 from Individual import Individual
 from Selection import *
@@ -17,11 +18,11 @@ def ga3(problem_name, population_size, generation=20000, path="Experiment1.txt")
     # 种群大小
     POPULATION_SIZE = population_size
     # 锦标赛选择中随机采样进行比赛的个体数目
-    UNIT = 2
+    UNIT = Config.UNIT
     # 交叉概率和变异概率
     # the probability of crossover and mutation
-    CROSSOVER_PRO = 0.9
-    MUTATION_PRO = 0.5
+    CROSSOVER_PRO = Config.CROSSOVER_PRO
+    MUTATION_PRO = Config.MUTATION_PRO
     # 总迭代进化次数
     # generation of evolution
     GENERATION = generation
