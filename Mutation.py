@@ -1,6 +1,7 @@
 import random
 import numpy as np
 
+
 def random_select_gene_sequence(solution):
     """
     random_select_gene_sequence
@@ -34,19 +35,17 @@ def insert(individual):
 
 def swap(individual):
     """
+    individual is mutable
     random swap 2 genes in solution
     :param individual: a possible solution
     """
     solution = individual.solution
     op1 = random.randint(0, len(solution) - 1)
     op2 = random.randint(0, len(solution) - 1)
-    temp = solution[op2]
-    solution[op2] = solution[op1]
-    solution[op1] = temp
-    individual.solution = solution
+    swapTool(individual, op1, op2)
 
 
-def swap(individual, op1, op2):
+def swapTool(individual, op1, op2):
     """
     swap 2 genes in solution
     :param individual: a possible solution
@@ -72,7 +71,7 @@ def inversion(individual):
     i = start
     j = end
     while i < j:
-        swap(solution, i, j)
+        swapTool(solution, i, j)
         i += 1
         j -= 1
     individual.solution = solution

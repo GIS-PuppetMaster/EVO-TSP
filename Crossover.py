@@ -1,6 +1,6 @@
 from Mutation import random_select_gene_sequence
 import random
-
+import copy
 
 def orderCrossoverTool(parent1, parent2):
     # do OC to parent1
@@ -33,33 +33,43 @@ def search_map(map, start):
 
 
 def PMXCrossover(parent1, parent2):
-    solution1 = parent1.solution
-    solution2 = parent2.solution
+    if parent1 == parent2:
+        return
+    solution1 = copy.deepcopy(parent1.solution)
+    solution2 = copy.deepcopy(parent2.solution)
     start, end = random_select_gene_sequence(solution1)
     # swap gene sequence
-    i = start
-    while i <= end:
-        temp = solution1[i]
-        solution1[i] = solution2[i]
-        solution2[i] = temp
-        i += 1
+    index = start
+    while index <= end:
+        temp = solution1[index]
+        solution1[index] = solution2[index]
+        solution2[index] = temp
+        index += 1
     # conflict detect
     child1 = solution1[start:end + 1]
     child2 = solution2[start:end + 1]
     # build map
     map = {}
-    i = 0
-    while i < len(child1):
-        map[child1[i]] = child2[i]
-        i += 1
+    index = 0
+    while index < len(child1):
+        map[child1[index]] = child2[index]
+        index += 1
     # detect and solve conflict
     for i in range(len(solution1)):
         # detected conflict
         if i < start or i > end:
             gene1 = solution1[i]
-            gene2 = solution2[i]
             if gene1 in child1:
                 solution1[i] = search_map(map, gene1)
+    map = {}
+    index = 0
+    while index < len(child2):
+        map[child2[index]] = child1[index]
+        index += 1
+    for i in range(len(solution2)):
+        # detected conflict
+        if i < start or i > end:
+            gene2 = solution2[i]
             if gene2 in child2:
                 solution2[i] = search_map(map, gene2)
     parent1.solution = solution1
