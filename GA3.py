@@ -22,7 +22,7 @@ CROSSOVER_PRO = 0.9
 MUTATION_PRO = 0.5
 # 总迭代进化次数
 # generation of evolution
-GENERATION = 500
+GENERATION = 20000
 
 # init problem
 problem = TSPProblem(PROBLEM_NAME)
@@ -70,7 +70,7 @@ for g in range(GENERATION):
             worst_index = i
     population[worst_index] = best_individual
     # calculate fitness
-    if g != 0 and g % (GENERATION / 10) == 0:
+    if g == 5000-1 or g == 10000-1 or g == 20000-1:
         min_fitness = 1e20
         for i in population:
             f = fitness(problem, i)

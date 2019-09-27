@@ -22,7 +22,7 @@ CROSSOVER_PRO = 0.9
 MUTATION_PRO = 0.5
 # 总迭代进化次数
 # generation of evolution
-GENERATION = 100
+GENERATION = 20000
 
 # init problem
 problem = TSPProblem(PROBLEM_NAME)
@@ -57,7 +57,7 @@ for g in range(GENERATION):
         r = random.uniform(1, 10)
         if r < MUTATION_PRO * 10:
             insert(individual)
-    if g != 0 and g % (GENERATION / 10) == 0:
+    if g == 5000 - 1 or g == 10000 - 1 or g == 20000 - 1:
         min_fitness = 1e20
         for i in population:
             f = fitness(problem, i)

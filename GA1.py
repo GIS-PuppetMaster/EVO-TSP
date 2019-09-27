@@ -13,9 +13,9 @@ from Mutation import *
 
 
 # 要解决的问题名称
-PROBLEM_NAME = 'pcb442'
+PROBLEM_NAME = 'eil51'
 # 种群大小
-POPULATION_SIZE = 20
+POPULATION_SIZE = 10
 # 锦标赛选择中随机采样进行比赛的个体数目
 UNIT = 2
 # 交叉概率和变异概率
@@ -24,7 +24,7 @@ CROSSOVER_PRO = 0.9
 MUTATION_PRO = 0.5
 # 总迭代进化次数
 # generation of evolution
-GENERATION = 100
+GENERATION = 20000
 
 
 
@@ -64,7 +64,7 @@ for g in range(GENERATION):
         if r < MUTATION_PRO * 10:
             swap(individual)
     # calculate fitness
-    if g != 0 and g % (GENERATION / 10) == 0:
+    if g == 5000-1 or g == 10000-1 or g == 20000-1:
         min_fitness = 1e20
         for i in population:
             f = fitness(problem, i)
