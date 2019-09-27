@@ -41,7 +41,7 @@ def ga2(problem_name, population_size):
     raw_std = np.std(raw_fitness)
     best_fitness = []
     for g in range(GENERATION):
-        print("第{0}次".format(g))
+        print("问题:{0},算法:GA2,种群大小:{1},第{2}次".format(PROBLEM_NAME, POPULATION_SIZE, g))
         # calculate fitness and select
         population = tournamentSelection(problem, population, UNIT, POPULATION_SIZE)
         # crossover

@@ -43,7 +43,7 @@ def ga3(problem_name, population_size):
     best_fitness = []
 
     for g in range(GENERATION):
-        print("第{0}次".format(g))
+        print("问题:{0},算法:GA3,种群大小:{1},第{2}次".format(PROBLEM_NAME, POPULATION_SIZE, g))
         # calculate fitness and select
         best_individual = elitismSelection(problem, population)
         # crossover
