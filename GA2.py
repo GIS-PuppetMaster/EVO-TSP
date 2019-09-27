@@ -11,7 +11,7 @@ from Crossover import *
 from Mutation import *
 
 
-def ga2(problem_name, population_size):
+def ga2(problem_name, population_size, generation=20000, path="Experiment1.txt"):
     # 要解决的问题名称
     PROBLEM_NAME = problem_name
     # 种群大小
@@ -24,7 +24,7 @@ def ga2(problem_name, population_size):
     MUTATION_PRO = 0.5
     # 总迭代进化次数
     # generation of evolution
-    GENERATION = 20000
+    GENERATION = generation
 
     # init problem
     problem = TSPProblem(PROBLEM_NAME)
@@ -64,7 +64,7 @@ def ga2(problem_name, population_size):
             for i in population:
                 f = fitness(problem, i)
                 min_fitness = f if f < min_fitness else min_fitness
-            best_fitness.append("   第{0}次最优适应度：{1}\n".format(g+1, min_fitness))
+            best_fitness.append("   第{0}次最优适应度：{1}\n".format(g + 1, min_fitness))
 
     # get result
     total_fitness = []
@@ -87,5 +87,5 @@ def ga2(problem_name, population_size):
         res += i
     res += "\n \n \n"
 
-    with open("Experiment1.txt", "a") as f:
+    with open(path, "a") as f:
         f.write(res)

@@ -2,9 +2,27 @@ from math import *
 import random
 import copy
 
-def fitnessproportional():
-    # TODO
-    pass
+
+def fitnessProportional(problem, population):
+    """
+    # because our fitness is the distance of the traveling salesman
+    # so we need to replace 'fitness' with '1/fitness' to make sure the better individual
+    # get greater chance to be selected
+    :param problem: the problem to be solved
+    :param population: the population
+    :return: new population after selection
+    """
+    sum = 0
+    new_population = []
+
+    for i in population:
+        sum += 1 / fitness(problem, i)
+    for i in population:
+        pro = (1 / fitness(problem, i)) / sum
+        flag = random.uniform(0, 1)
+        if flag <= pro:
+            new_population.append(i)
+    return new_population
 
 
 def fitness(problem, individual):

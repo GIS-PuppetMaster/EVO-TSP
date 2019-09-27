@@ -11,7 +11,7 @@ from Crossover import *
 from Mutation import *
 
 
-def ga1(problem_name, population_size):
+def ga1(problem_name, population_size, generation=20000, path="Experiment1.txt"):
     # 要解决的问题名称
     PROBLEM_NAME = problem_name
     # 种群大小
@@ -24,7 +24,7 @@ def ga1(problem_name, population_size):
     MUTATION_PRO = 0.5
     # 总迭代进化次数
     # generation of evolution
-    GENERATION = 20000
+    GENERATION = generation
 
     # init problem
     problem = TSPProblem(PROBLEM_NAME)
@@ -90,5 +90,5 @@ def ga1(problem_name, population_size):
         res += i
 
     res += "\n \n \n"
-    with open("Experiment1.txt", "a") as f:
+    with open(path, "a") as f:
         f.write(res)
