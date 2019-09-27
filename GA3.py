@@ -75,7 +75,7 @@ for g in range(GENERATION):
         for i in population:
             f = fitness(problem, i)
             min_fitness = f if f < min_fitness else min_fitness
-        best_fitness.append("   第{0}次最优适应度：{1}\n".format(g, min_fitness))
+        best_fitness.append("   第{0}次最优适应度：{1}\n".format(g+1, min_fitness))
 
 # get result
 total_fitness = []
