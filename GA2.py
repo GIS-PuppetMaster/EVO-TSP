@@ -1,15 +1,13 @@
 """
 tournamentSelection
-PMXCrossover
-swap mutation
+cycleCrossover
+insert mutation
 """
 from TSPProblem import TSPProblem
 from Individual import Individual
 from Selection import *
 from Crossover import *
 from Mutation import *
-
-
 
 # 要解决的问题名称
 PROBLEM_NAME = 'pcb442'
@@ -25,15 +23,12 @@ MUTATION_PRO = 0.5
 # generation of evolution
 GENERATION = 500
 
-
-
 # init problem
 problem = TSPProblem(PROBLEM_NAME)
 # init population
 population = []
 for i in range(POPULATION_SIZE):
     population.append(Individual(problem))
-
 raw_fitness = []
 for i in population:
     raw_fitness.append(fitness(problem, i))
@@ -42,7 +37,6 @@ raw_mean = np.mean(raw_fitness)
 raw_var = np.var(raw_fitness)
 raw_std = np.std(raw_fitness)
 best_fitness = []
-
 for g in range(GENERATION):
     print("第{0}次".format(g))
     # calculate fitness and select
@@ -50,20 +44,18 @@ for g in range(GENERATION):
     # crossover
     random.shuffle(population)
     i = 0
-    while i < len(population)-1:
+    while i < len(population) - 1:
         r = random.uniform(1, 10)
         if r < CROSSOVER_PRO * 10:
             parent1 = population[i]
             parent2 = population[i + 1]
-            PMXCrossover(parent1, parent2)
+            cycleCrossover(parent1, parent2)
         i += 2
     # mutation
     for individual in population:
         r = random.uniform(1, 10)
         if r < MUTATION_PRO * 10:
-            swap(individual)
-    # calculate fitness
-    best_fitness = []
+            insert(individual)
     if g != 0 and g % (GENERATION / 10) == 0:
         min_fitness = 1e20
         for i in population:
@@ -86,8 +78,7 @@ print("最终种群适应度平均值：" + str(mean))
 print("最终适应度方差：" + str(var))
 print("最终适应度标准差: " + str(std))
 
+
 print("训练历史")
 for i in best_fitness:
     print(i)
-
-

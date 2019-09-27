@@ -1,15 +1,13 @@
 """
-tournamentSelection
-PMXCrossover
-swap mutation
+elitismSelection
+cycleCrossover
+insert mutation
 """
 from TSPProblem import TSPProblem
 from Individual import Individual
 from Selection import *
 from Crossover import *
 from Mutation import *
-
-
 
 # 要解决的问题名称
 PROBLEM_NAME = 'pcb442'
@@ -24,8 +22,6 @@ MUTATION_PRO = 0.5
 # 总迭代进化次数
 # generation of evolution
 GENERATION = 500
-
-
 
 # init problem
 problem = TSPProblem(PROBLEM_NAME)
@@ -46,24 +42,32 @@ best_fitness = []
 for g in range(GENERATION):
     print("第{0}次".format(g))
     # calculate fitness and select
-    population = tournamentSelection(problem, population, UNIT, POPULATION_SIZE)
+    best_individual = elitismSelection(problem, population)
     # crossover
     random.shuffle(population)
     i = 0
-    while i < len(population)-1:
+    while i < len(population) - 1:
         r = random.uniform(1, 10)
         if r < CROSSOVER_PRO * 10:
             parent1 = population[i]
             parent2 = population[i + 1]
-            PMXCrossover(parent1, parent2)
+            cycleCrossover(parent1, parent2)
         i += 2
     # mutation
     for individual in population:
         r = random.uniform(1, 10)
         if r < MUTATION_PRO * 10:
-            swap(individual)
+            insert(individual)
+    # replace the worst with best
+    max_fitness = 0
+    worst_index = 0
+    for i in population:
+        f = fitness(problem, i)
+        if f > max_fitness:
+            max_fitness = f
+            worst_index = i
+    population[worst_index] = best_individual
     # calculate fitness
-    best_fitness = []
     if g != 0 and g % (GENERATION / 10) == 0:
         min_fitness = 1e20
         for i in population:
@@ -89,5 +93,3 @@ print("最终适应度标准差: " + str(std))
 print("训练历史")
 for i in best_fitness:
     print(i)
-
-

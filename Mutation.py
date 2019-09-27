@@ -26,7 +26,7 @@ def insert(individual):
     # random select gene to insert
     solution = individual.solution
     op = random.randint(0, len(solution) - 1)
-    gene = solution.pop(solution[op])
+    gene = solution.pop(op)
     # random select position to insert
     target = random.randint(0, len(solution) - 2)
     solution.insert(target, gene)
